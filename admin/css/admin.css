@@ -1,0 +1,104 @@
+:root {
+    --mm-primary: #6C5CE7;
+    --mm-primary-dk: #5A4BD1;
+    --mm-primary-lt: #A29BFE;
+    --mm-success: #00B894;
+    --mm-danger: #E17055;
+    --mm-bg: #F8F9FA;
+    --mm-card: #fff;
+    --mm-border: #E1E5EB;
+    --mm-text: #2D3436;
+    --mm-muted: #636E72;
+    --mm-radius: 12px;
+    --mm-radius-sm: 8px;
+    --mm-shadow: 0 1px 3px rgba(0,0,0,.06);
+    --mm-shadow-lg: 0 10px 30px rgba(0,0,0,.08);
+    --mm-tr: .2s ease;
+}
+.mmorph-wrap { max-width: 960px; margin: 20px 20px 20px 0; }
+
+/* Header */
+.mmorph-admin-header { background: linear-gradient(135deg, var(--mm-primary), var(--mm-primary-dk)); border-radius: var(--mm-radius); overflow: hidden; box-shadow: var(--mm-shadow-lg); }
+.mmorph-admin-header-inner { display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; flex-wrap: wrap; gap: 16px; }
+.mmorph-admin-logo { display: flex; align-items: center; gap: 14px; }
+.mmorph-admin-logo h1 { color: #fff; font-size: 24px; font-weight: 700; margin: 0; padding: 0; }
+.mmorph-admin-version { color: rgba(255,255,255,.7); font-size: 12px; }
+.mmorph-admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.mmorph-admin-actions .button { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); color: #fff; border-radius: var(--mm-radius-sm); padding: 6px 16px; font-size: 13px; cursor: pointer; transition: all var(--mm-tr); text-decoration: none; }
+.mmorph-admin-actions .button:hover { background: rgba(255,255,255,.25); color: #fff; }
+.mmorph-admin-actions .button .dashicons { font-size: 16px; width: 16px; height: 16px; }
+
+/* Status */
+.mmorph-status { padding: 12px 32px; font-size: 13px; font-weight: 500; border-top: 1px solid rgba(255,255,255,.15); display: flex; align-items: center; gap: 8px; }
+.mmorph-status.hidden { display: none; }
+.mmorph-status.success { background: rgba(0,184,148,.15); color: #00B894; }
+.mmorph-status.error { background: rgba(225,112,85,.15); color: #E17055; }
+.mmorph-status.loading { background: rgba(116,185,255,.15); color: #74B9FF; }
+
+/* Tabs */
+.mmorph-admin-tabs { display: flex; background: var(--mm-card); border-radius: 0 0 var(--mm-radius) var(--mm-radius); border: 1px solid var(--mm-border); border-top: none; margin-bottom: 24px; overflow-x: auto; }
+.mmorph-admin-tab { display: inline-flex; align-items: center; gap: 6px; padding: 14px 18px; color: var(--mm-muted); text-decoration: none; font-size: 13px; font-weight: 500; border-bottom: 3px solid transparent; transition: all var(--mm-tr); white-space: nowrap; }
+.mmorph-admin-tab:hover { color: var(--mm-primary); background: rgba(108,92,231,.04); }
+.mmorph-admin-tab.active { color: var(--mm-primary); border-bottom-color: var(--mm-primary); background: rgba(108,92,231,.06); }
+.mmorph-admin-tab .dashicons { font-size: 16px; width: 16px; height: 16px; }
+
+/* Panels */
+.mmorph-tab-panel { display: none; }
+.mmorph-tab-panel.active { display: block; }
+
+/* Cards */
+.mmorph-card { background: var(--mm-card); border: 1px solid var(--mm-border); border-radius: var(--mm-radius); margin-bottom: 20px; box-shadow: var(--mm-shadow); overflow: hidden; }
+.mmorph-card-header { padding: 20px 24px 0; }
+.mmorph-card-header h2 { font-size: 16px; font-weight: 600; color: var(--mm-text); margin: 0 0 6px; padding: 0; }
+.mmorph-card-header p { color: var(--mm-muted); font-size: 13px; margin: 0; }
+.mmorph-card-body { padding: 16px 24px 24px; }
+.mmorph-card-info { border-left: 4px solid var(--mm-primary-lt); }
+
+/* Form */
+.mmorph-card .form-table th { font-weight: 500; color: var(--mm-text); padding: 14px 12px 14px 0; font-size: 13px; width: 200px; }
+.mmorph-card .form-table td { padding: 10px 0; }
+.mmorph-card .form-table td .description { color: var(--mm-muted); font-size: 12px; margin-top: 6px; }
+.mmorph-card .form-table input[type="text"],
+.mmorph-card .form-table input[type="password"],
+.mmorph-card .form-table input[type="number"],
+.mmorph-card .form-table textarea,
+.mmorph-card .form-table select { border: 1px solid var(--mm-border); border-radius: var(--mm-radius-sm); padding: 8px 12px; font-size: 13px; transition: border-color var(--mm-tr); }
+.mmorph-card .form-table input:focus,
+.mmorph-card .form-table textarea:focus,
+.mmorph-card .form-table select:focus { border-color: var(--mm-primary); box-shadow: 0 0 0 2px rgba(108,92,231,.15); outline: none; }
+
+/* Toggle */
+.mmorph-toggle { position: relative; display: inline-block; width: 44px; height: 24px; vertical-align: middle; }
+.mmorph-toggle input[type="checkbox"] { opacity: 0; width: 0; height: 0; position: absolute; }
+.mmorph-toggle-slider { position: absolute; cursor: pointer; inset: 0; background: #ccc; border-radius: 24px; transition: all var(--mm-tr); }
+.mmorph-toggle-slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: all var(--mm-tr); box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.mmorph-toggle input:checked + .mmorph-toggle-slider { background: var(--mm-primary); }
+.mmorph-toggle input:checked + .mmorph-toggle-slider::before { transform: translateX(20px); }
+
+/* Steps */
+.mmorph-steps-list { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+.mmorph-steps-list li { position: relative; padding: 10px 0 10px 44px; font-size: 13px; color: var(--mm-text); border-bottom: 1px solid var(--mm-border); counter-increment: step; }
+.mmorph-steps-list li:last-child { border-bottom: none; }
+.mmorph-steps-list li::before { content: counter(step); position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: var(--mm-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+
+/* Pre */
+.mmorph-card pre { background: var(--mm-bg); border: 1px solid var(--mm-border); border-radius: var(--mm-radius-sm); padding: 12px 16px; overflow-x: auto; margin: 8px 0 16px; }
+.mmorph-card pre code { background: none; padding: 0; font-size: 13px; color: var(--mm-primary-dk); }
+.mmorph-card h3 { font-size: 14px; font-weight: 600; margin: 18px 0 4px; }
+
+/* Submit */
+.mmorph-admin-form .submit input[type="submit"] { background: var(--mm-primary); border: none; color: #fff; padding: 10px 28px; font-size: 14px; font-weight: 600; border-radius: var(--mm-radius-sm); cursor: pointer; transition: all var(--mm-tr); box-shadow: 0 2px 8px rgba(108,92,231,.3); }
+.mmorph-admin-form .submit input[type="submit"]:hover { background: var(--mm-primary-dk); box-shadow: 0 4px 16px rgba(108,92,231,.4); }
+
+/* Spinner */
+@keyframes mmSpin { to { transform: rotate(360deg); } }
+.mmorph-spinner-sm { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: mmSpin .6s linear infinite; margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 782px) {
+    .mmorph-wrap { margin: 10px 0; }
+    .mmorph-admin-header-inner { padding: 16px 20px; }
+    .mmorph-card-header, .mmorph-card-body { padding-left: 16px; padding-right: 16px; }
+    .mmorph-card .form-table th { width: auto; display: block; padding-bottom: 4px; }
+    .mmorph-card .form-table td { display: block; padding-top: 0; }
+}
