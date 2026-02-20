@@ -427,9 +427,6 @@ class PixelBin_API {
             case 'portrait':
             default:
                 $inputs = [ 'image' => $image_url ];
-                if ( ! empty( $prompt ) ) {
-                    $inputs['prompt'] = $prompt;
-                }
                 $result = $this->create_prediction( 'portrait', 'generate', $inputs );
                 break;
         }

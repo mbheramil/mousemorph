@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.3.0 =
+* Fix: Caricature output now matches pixelbin.io/ai-tools/caricature-maker — produces proper exaggerated 3D caricatures.
+* Change: Removed prompt override from portrait/generate API call; the endpoint's default caricature style is now used.
 
 = 1.2.2 =
 * Fix: Auto-updater now clears cache on every WordPress update check so new releases show immediately.
