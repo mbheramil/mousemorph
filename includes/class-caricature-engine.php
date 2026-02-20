@@ -12,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Caricature_Engine {
 
-    const DEFAULT_CARICATURE_PROMPT = 'Transform this photo into a 3D cartoon caricature character. Exaggerated facial features, big expressive eyes, smooth cartoon skin, fun playful expression. Pixar Disney animation style, colorful, high quality 3D render. Keep the person recognizable.';
+    const DEFAULT_CARICATURE_PROMPT = 'A vibrant and highly detailed 3D rendered caricature portrait of the person from the uploaded image. The subject should have a straight, front-facing head pose and a joyfully expressive, wide-eyed smile, maintaining the distinctive hairstyle and facial features of the original. Emphasize and exaggerate these features while rigorously maintaining a strong likeness to the individual. The style is a clean, polished photorealistic-caricature, featuring an enlarged head and a proportionately smaller upper body. The background is a smooth, light grey gradient, with soft, flattering studio lighting.';
 
-    const DEFAULT_MOUSE_PROMPT = 'Transform this photo into a cute, fun cartoon mouse caricature. The person should be reimagined as an adorable mouse character with big round mouse ears, a small pink nose, whiskers, and expressive eyes that capture their likeness. Keep it family-friendly, whimsical, Pixar Disney animation style, high quality 3D render, suitable for printing on merchandise.';
+    const DEFAULT_MOUSE_PROMPT = 'A vibrant and highly detailed 3D rendered caricature portrait of the person from the uploaded image, reimagined as a cute cartoon mouse character with big round mouse ears, a small pink nose, and whiskers. The subject should have a straight, front-facing head pose and a joyfully expressive, wide-eyed smile, maintaining the distinctive hairstyle and facial features of the original. Emphasize and exaggerate these features while rigorously maintaining a strong likeness to the individual. The style is a clean, polished photorealistic-caricature, featuring an enlarged head and a proportionately smaller upper body. The background is a smooth, light grey gradient, with soft, flattering studio lighting.';
 
     public function __construct() {
         add_action( 'wp_ajax_mmorph_upload_photo',  [ $this, 'ajax_upload' ] );

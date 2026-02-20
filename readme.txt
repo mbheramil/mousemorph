@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,12 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.4.0 =
+* Fix: Caricature output now matches pixelbin.io/ai-tools/caricature-maker quality.
+* Change: Switched from portrait/generate (basic 3D portraits) to img/edit (AI Image Editor) — the same approach pixelbin.io uses.
+* New: Uses the exact caricature prompt reverse-engineered from pixelbin.io for proper exaggerated 3D caricature style.
+* Default transformation method is now 'img' (AI Image Editor).
 
 = 1.3.0 =
 * Fix: Caricature output now matches pixelbin.io/ai-tools/caricature-maker — produces proper exaggerated 3D caricatures.

@@ -410,24 +410,24 @@ class PixelBin_API {
             }
         }
 
-        $method = MouseMorph::get_option( 'transform_method', 'portrait' );
+        $method = MouseMorph::get_option( 'transform_method', 'img' );
 
         switch ( $method ) {
-            case 'img':
-                $inputs = [
-                    'prompt' => $prompt,
-                    'images' => $image_url,
-                ];
-                $result = $this->create_prediction( 'img', 'edit', $inputs );
+            case 'portrait':
+                $inputs = [ 'image' => $image_url ];
+                $result = $this->create_prediction( 'portrait', 'generate', $inputs );
                 break;
 
             case 'vg':
                 return $this->generate_caricature_cdn( $image_url, $pixelbin_path, $prompt );
 
-            case 'portrait':
+            case 'img':
             default:
-                $inputs = [ 'image' => $image_url ];
-                $result = $this->create_prediction( 'portrait', 'generate', $inputs );
+                $inputs = [
+                    'prompt' => $prompt,
+                    'images' => $image_url,
+                ];
+                $result = $this->create_prediction( 'img', 'edit', $inputs );
                 break;
         }
 

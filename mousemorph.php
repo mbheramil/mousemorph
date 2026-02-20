@@ -3,7 +3,7 @@
  * Plugin Name: MouseMorph — AI Caricature Maker for WooCommerce
  * Plugin URI:  https://pixelbin.io
  * Description: Let customers turn their photos into fun mouse caricatures powered by PixelBin AI, then print them on your products.
- * Version:     1.3.0
+ * Version:     1.4.0
  * Author:      PixelBin
  * Author URI:  https://pixelbin.io
  * License:     GPL-2.0-or-later
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'MMORPH_VERSION', '1.3.0' );
+define( 'MMORPH_VERSION', '1.4.0' );
 define( 'MMORPH_FILE', __FILE__ );
 define( 'MMORPH_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MMORPH_URL', plugin_dir_url( __FILE__ ) );
@@ -161,9 +161,9 @@ register_activation_hook( __FILE__, function () {
         'zone_slug'         => '',
         'api_token'         => '',
         'custom_domain'     => '',
-        'transform_method'  => 'portrait',
+        'transform_method'  => 'img',
         'enable_prompts'    => 'no',
-        'system_prompt'     => 'Transform this photo into a cute, fun cartoon mouse caricature. The person should be reimagined as an adorable mouse character with big round mouse ears, a small pink nose, whiskers, and expressive eyes that capture their likeness. Keep it family-friendly, whimsical, Pixar Disney animation style, high quality 3D render, suitable for printing on merchandise.',
+        'system_prompt'     => 'A vibrant and highly detailed 3D rendered caricature portrait of the person from the uploaded image, reimagined as a cute cartoon mouse character with big round mouse ears, a small pink nose, and whiskers. The subject should have a straight, front-facing head pose and a joyfully expressive, wide-eyed smile, maintaining the distinctive hairstyle and facial features of the original. Emphasize and exaggerate these features while rigorously maintaining a strong likeness to the individual. The style is a clean, polished photorealistic-caricature, featuring an enlarged head and a proportionately smaller upper body. The background is a smooth, light grey gradient, with soft, flattering studio lighting.',
         'daily_limit_guest' => 3,
         'daily_limit_user'  => 5,
         'require_login'     => 'no',
