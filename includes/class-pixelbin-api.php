@@ -160,9 +160,11 @@ class PixelBin_API {
             $dir_path = '/' . $dir_path;
         }
 
+        $file_basename = pathinfo( $dest_path, PATHINFO_FILENAME );
+
         $fields = [
             'path'      => $dir_path,
-            'name'      => basename( $dest_path ),
+            'name'      => $file_basename,
             'access'    => 'public-read',
             'overwrite' => 'true',
         ];
@@ -424,7 +426,7 @@ class PixelBin_API {
 
             case 'portrait':
             default:
-                $inputs = [ 'images' => $image_url ];
+                $inputs = [ 'image' => $image_url ];
                 if ( ! empty( $prompt ) ) {
                     $inputs['prompt'] = $prompt;
                 }

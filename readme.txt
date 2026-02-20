@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.1.1 =
+* Fix: portrait/generate API requires `image` (singular) not `images` — fixes validation error.
+* Fix: Double file extension (.jpg.jpg) caused by PixelBin auto-appending extension to uploaded name.
 
 = 1.1.0 =
 * Fix: Resolve Cloudflare hotlink protection (Error 1011) blocking generated caricature images.
