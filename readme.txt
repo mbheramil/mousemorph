@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix: Mouse transformation prompt was not being sent to the API when no user scene was provided.
+* Improvement: Updated default prompt to produce actual mouse character caricatures, not just 3D portraits.
 
 = 1.2.0 =
 * New: GitHub-based auto-updater — plugin now shows updates in WordPress Plugins page with one-click update.

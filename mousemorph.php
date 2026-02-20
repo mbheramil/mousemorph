@@ -3,7 +3,7 @@
  * Plugin Name: MouseMorph — AI Caricature Maker for WooCommerce
  * Plugin URI:  https://pixelbin.io
  * Description: Let customers turn their photos into fun mouse caricatures powered by PixelBin AI, then print them on your products.
- * Version:     1.2.0
+ * Version:     1.2.1
  * Author:      PixelBin
  * Author URI:  https://pixelbin.io
  * License:     GPL-2.0-or-later
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'MMORPH_VERSION', '1.2.0' );
+define( 'MMORPH_VERSION', '1.2.1' );
 define( 'MMORPH_FILE', __FILE__ );
 define( 'MMORPH_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MMORPH_URL', plugin_dir_url( __FILE__ ) );
@@ -163,7 +163,7 @@ register_activation_hook( __FILE__, function () {
         'custom_domain'     => '',
         'transform_method'  => 'portrait',
         'enable_prompts'    => 'no',
-        'system_prompt'     => 'Transform this photo into a 3D cartoon mouse caricature character with big round mouse ears, pink nose, and whiskers. Exaggerated facial features, big expressive eyes, smooth cartoon skin, fun playful expression. Pixar Disney animation style, colorful, high quality 3D render. Keep the person recognizable as a mouse character.',
+        'system_prompt'     => 'Transform this photo into a cute, fun cartoon mouse caricature. The person should be reimagined as an adorable mouse character with big round mouse ears, a small pink nose, whiskers, and expressive eyes that capture their likeness. Keep it family-friendly, whimsical, Pixar Disney animation style, high quality 3D render, suitable for printing on merchandise.',
         'daily_limit_guest' => 3,
         'daily_limit_user'  => 5,
         'require_login'     => 'no',

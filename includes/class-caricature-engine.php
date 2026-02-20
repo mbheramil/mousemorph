@@ -14,7 +14,7 @@ class Caricature_Engine {
 
     const DEFAULT_CARICATURE_PROMPT = 'Transform this photo into a 3D cartoon caricature character. Exaggerated facial features, big expressive eyes, smooth cartoon skin, fun playful expression. Pixar Disney animation style, colorful, high quality 3D render. Keep the person recognizable.';
 
-    const DEFAULT_MOUSE_PROMPT = 'Transform this photo into a 3D cartoon mouse caricature character with big round mouse ears, pink nose, and whiskers. Exaggerated facial features, big expressive eyes, smooth cartoon skin, fun playful expression. Pixar Disney animation style, colorful, high quality 3D render. Keep the person recognizable as a mouse character.';
+    const DEFAULT_MOUSE_PROMPT = 'Transform this photo into a cute, fun cartoon mouse caricature. The person should be reimagined as an adorable mouse character with big round mouse ears, a small pink nose, whiskers, and expressive eyes that capture their likeness. Keep it family-friendly, whimsical, Pixar Disney animation style, high quality 3D render, suitable for printing on merchandise.';
 
     public function __construct() {
         add_action( 'wp_ajax_mmorph_upload_photo',  [ $this, 'ajax_upload' ] );
@@ -33,16 +33,10 @@ class Caricature_Engine {
     /* ── Prompt Builder ─────────────────────────── */
 
     public function build_prompt( string $user_scene = '' ): string {
-        $method = MouseMorph::get_option( 'transform_method', 'portrait' );
-
         $system = MouseMorph::get_option( 'system_prompt', '' );
 
         if ( empty( $system ) ) {
             $system = self::DEFAULT_MOUSE_PROMPT;
-        }
-
-        if ( $method === 'portrait' && empty( $user_scene ) ) {
-            return '';
         }
 
         $prompt = trim( $system );
