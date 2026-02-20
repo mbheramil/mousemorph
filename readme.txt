@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,11 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.2.2 =
+* Fix: Auto-updater now clears cache on every WordPress update check so new releases show immediately.
+* New: "Check for updates" link added to plugin action links on the Plugins page.
+* Improvement: Reduced cache TTL from 6 hours to 2 hours.
 
 = 1.2.1 =
 * Fix: Mouse transformation prompt was not being sent to the API when no user scene was provided.

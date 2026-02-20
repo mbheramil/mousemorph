@@ -15,8 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class GitHub_Updater {
 
+    private const CACHE_KEY = 'mmorph_gh_release';
+    private const CACHE_TTL = 2 * HOUR_IN_SECONDS;
+
     private string $file;
     private string $plugin_slug;
+    private string $plugin_dir;
     private string $repo;
     private string $version;
     private ?array $github_data = null;
@@ -29,28 +33,31 @@ class GitHub_Updater {
     public function __construct( string $file, string $repo, string $version ) {
         $this->file        = $file;
         $this->plugin_slug = plugin_basename( $file );
+        $this->plugin_dir  = dirname( $this->plugin_slug );
         $this->repo        = $repo;
         $this->version     = $version;
 
         add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_update' ] );
         add_filter( 'plugins_api', [ $this, 'plugin_info' ], 20, 3 );
         add_filter( 'upgrader_post_install', [ $this, 'post_install' ], 10, 3 );
+        add_filter( 'plugin_action_links_' . $this->plugin_slug, [ $this, 'add_check_link' ] );
+        add_action( 'admin_init', [ $this, 'handle_force_check' ] );
     }
 
     /**
-     * Fetch the latest release data from GitHub (cached for 6 hours).
+     * Fetch the latest release data from GitHub (cached).
      */
-    private function get_github_release(): array {
-        if ( null !== $this->github_data ) {
+    private function get_github_release( bool $force = false ): array {
+        if ( ! $force && null !== $this->github_data ) {
             return $this->github_data;
         }
 
-        $transient_key = 'mmorph_gh_release';
-        $cached        = get_transient( $transient_key );
-
-        if ( false !== $cached && is_array( $cached ) ) {
-            $this->github_data = $cached;
-            return $this->github_data;
+        if ( ! $force ) {
+            $cached = get_transient( self::CACHE_KEY );
+            if ( false !== $cached && is_array( $cached ) ) {
+                $this->github_data = $cached;
+                return $this->github_data;
+            }
         }
 
         $url      = 'https://api.github.com/repos/' . $this->repo . '/releases/latest';
@@ -72,24 +79,18 @@ class GitHub_Updater {
             $data = [];
         }
 
-        set_transient( $transient_key, $data, 6 * HOUR_IN_SECONDS );
+        set_transient( self::CACHE_KEY, $data, self::CACHE_TTL );
         $this->github_data = $data;
 
         return $this->github_data;
     }
 
-    /**
-     * Extract the clean version number from a tag like "v1.2.3".
-     */
     private function remote_version(): string {
         $release = $this->get_github_release();
         $tag     = $release['tag_name'] ?? '';
         return ltrim( $tag, 'vV' );
     }
 
-    /**
-     * Get the zipball URL for the latest release.
-     */
     private function download_url(): string {
         $release = $this->get_github_release();
         return $release['zipball_url'] ?? '';
@@ -103,8 +104,11 @@ class GitHub_Updater {
             return $transient;
         }
 
-        $remote_ver  = $this->remote_version();
-        $download    = $this->download_url();
+        delete_transient( self::CACHE_KEY );
+        $this->github_data = null;
+
+        $remote_ver = $this->remote_version();
+        $download   = $this->download_url();
 
         if ( empty( $remote_ver ) || empty( $download ) ) {
             return $transient;
@@ -112,7 +116,7 @@ class GitHub_Updater {
 
         if ( version_compare( $remote_ver, $this->version, '>' ) ) {
             $transient->response[ $this->plugin_slug ] = (object) [
-                'slug'        => dirname( $this->plugin_slug ),
+                'slug'        => $this->plugin_dir,
                 'plugin'      => $this->plugin_slug,
                 'new_version' => $remote_ver,
                 'url'         => 'https://github.com/' . $this->repo,
@@ -131,7 +135,7 @@ class GitHub_Updater {
             return $result;
         }
 
-        if ( ( $args->slug ?? '' ) !== dirname( $this->plugin_slug ) ) {
+        if ( ( $args->slug ?? '' ) !== $this->plugin_dir ) {
             return $result;
         }
 
@@ -140,17 +144,17 @@ class GitHub_Updater {
             return $result;
         }
 
-        $info               = new stdClass();
-        $info->name         = 'MouseMorph — AI Caricature Maker for WooCommerce';
-        $info->slug         = dirname( $this->plugin_slug );
-        $info->version      = $this->remote_version();
-        $info->author       = '<a href="https://pixelbin.io">PixelBin</a>';
-        $info->homepage     = 'https://github.com/' . $this->repo;
-        $info->requires     = '5.8';
-        $info->tested       = '6.7';
-        $info->requires_php = '7.4';
+        $info                = new stdClass();
+        $info->name          = 'MouseMorph — AI Caricature Maker for WooCommerce';
+        $info->slug          = $this->plugin_dir;
+        $info->version       = $this->remote_version();
+        $info->author        = '<a href="https://pixelbin.io">PixelBin</a>';
+        $info->homepage      = 'https://github.com/' . $this->repo;
+        $info->requires      = '5.8';
+        $info->tested        = '6.7';
+        $info->requires_php  = '7.4';
         $info->download_link = $this->download_url();
-        $info->sections     = [
+        $info->sections      = [
             'description' => 'Turn your customers into fun mouse caricatures powered by PixelBin AI.',
             'changelog'   => nl2br( esc_html( $release['body'] ?? '' ) ),
         ];
@@ -169,12 +173,40 @@ class GitHub_Updater {
 
         global $wp_filesystem;
 
-        $proper_dest = WP_PLUGIN_DIR . '/' . dirname( $this->plugin_slug );
+        $proper_dest = WP_PLUGIN_DIR . '/' . $this->plugin_dir;
         $wp_filesystem->move( $result['destination'], $proper_dest );
         $result['destination'] = $proper_dest;
 
         activate_plugin( $this->plugin_slug );
 
         return $result;
+    }
+
+    /**
+     * Add a "Check for updates" link on the Plugins page.
+     */
+    public function add_check_link( array $links ): array {
+        $url  = wp_nonce_url( admin_url( 'plugins.php?mmorph_force_check=1' ), 'mmorph_force_check' );
+        $links[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Check for updates', 'mousemorph' ) . '</a>';
+        return $links;
+    }
+
+    /**
+     * Handle the force-check action: clear cache and trigger WP update check.
+     */
+    public function handle_force_check(): void {
+        if ( empty( $_GET['mmorph_force_check'] ) || ! current_user_can( 'update_plugins' ) ) {
+            return;
+        }
+
+        check_admin_referer( 'mmorph_force_check' );
+
+        delete_transient( self::CACHE_KEY );
+        $this->github_data = null;
+
+        delete_site_transient( 'update_plugins' );
+
+        wp_safe_redirect( admin_url( 'plugins.php' ) );
+        exit;
     }
 }
