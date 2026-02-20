@@ -3,7 +3,7 @@
  * Plugin Name: MouseMorph — AI Caricature Maker for WooCommerce
  * Plugin URI:  https://pixelbin.io
  * Description: Let customers turn their photos into fun mouse caricatures powered by PixelBin AI, then print them on your products.
- * Version:     1.1.1
+ * Version:     1.2.0
  * Author:      PixelBin
  * Author URI:  https://pixelbin.io
  * License:     GPL-2.0-or-later
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'MMORPH_VERSION', '1.1.1' );
+define( 'MMORPH_VERSION', '1.2.0' );
 define( 'MMORPH_FILE', __FILE__ );
 define( 'MMORPH_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MMORPH_URL', plugin_dir_url( __FILE__ ) );
@@ -32,6 +32,7 @@ require_once MMORPH_DIR . 'includes/class-caricature-engine.php';
 require_once MMORPH_DIR . 'includes/class-admin-settings.php';
 require_once MMORPH_DIR . 'includes/class-woo-integration.php';
 require_once MMORPH_DIR . 'includes/class-shortcode.php';
+require_once MMORPH_DIR . 'includes/class-github-updater.php';
 
 final class MouseMorph {
 
@@ -67,6 +68,8 @@ final class MouseMorph {
         if ( class_exists( 'WooCommerce' ) ) {
             $this->woo = new Woo_Integration();
         }
+
+        new GitHub_Updater( MMORPH_FILE, 'mbheramil/mousemorph', MMORPH_VERSION );
 
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'frontend_assets' ] );

@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.6
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,9 @@ Turn your customers into fun mouse caricatures! Powered by PixelBin AI, users up
 * A PixelBin account with API access
 
 == Changelog ==
+
+= 1.2.0 =
+* New: GitHub-based auto-updater — plugin now shows updates in WordPress Plugins page with one-click update.
 
 = 1.1.1 =
 * Fix: portrait/generate API requires `image` (singular) not `images` — fixes validation error.
